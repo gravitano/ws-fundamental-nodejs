@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Synchronous VS Asynchronous</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="container mt-3">
+      <h1 class="my-3">Synchronous VS Asynchronous</h1>
+
+      <div>
+        <p>
+          Data will loads from
+          <a href="https://jsonplaceholder.typicode.com"
+            >https://jsonplaceholder.typicode.com</a
+          >
+        </p>
+        <p>
+          &gt; Open Developer Tools, select Network tab, simulate slow
+          connection, check the waterfall
+          <a href="screenshot.png" title="Google Chrome Developer Tools"
+            >(screenshot)</a
+          >.
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <button id="syncBtn" class="btn btn-outline-secondary">
+            Load Synchronously
+          </button>
+          <button id="asyncBtn" class="btn btn-outline-secondary">
+            Load Asynchronously
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function() {
+        const http = {
+          baseUrl: "",
+
+          get(url, async = true) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", this.baseUrl + url, async);
+            xhr.onerror = error => {
+              console.error(error);
+            };
+            xhr.send();
+          },
+
+          getSync(url) {
+            this.get(url, false);
+          },
+
+          getAsync(url) {
+            this.get(url, true);
+          }
+        };
+
+        http.baseUrl = "https://jsonplaceholder.typicode.com";
+
+        document.querySelector("#syncBtn").addEventListener("click", () => {
+          http.getSync("/albums");
+          http.getSync("/comments");
+          http.getSync("/posts");
+          http.getSync("/photos");
+          http.getSync("/todos");
+          http.getSync("/users");
+        });
+
+        document.querySelector("#asyncBtn").addEventListener("click", () => {
+          http.getAsync("/albums");
+          http.getAsync("/comments");
+          http.getAsync("/posts");
+          http.getAsync("/photos");
+          http.getAsync("/todos");
+          http.getAsync("/users");
+        });
+      })();
+    </script>
+  </body>
+</html>
