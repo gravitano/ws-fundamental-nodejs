@@ -26,11 +26,12 @@ router.get("/:id", async function(req, res, next) {
 router.put("/:id", async function(req, res, next) {
   const id = req.params.id;
   const data = req.body;
-  await model.Product.update(data, {
+  const isUpdated = await model.Product.update(data, {
     where: { id }
   });
   res.json({
-    data
+    data,
+    message: isUpdated ? "Product updated!" : "Product not found"
   });
 });
 router.delete("/:id", async function(req, res, next) {
