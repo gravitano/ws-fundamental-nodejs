@@ -9,8 +9,12 @@ router.get("/", async function(req, res, next) {
     data: products
   });
 });
-router.post("/", function(req, res, next) {
-  res.send("Create new product");
+router.post("/", async function(req, res, next) {
+  const data = req.body;
+  const product = await model.Product.create(data);
+  res.json({
+    data: product
+  });
 });
 router.get("/:id", function(req, res, next) {
   res.send("Get product detail");
