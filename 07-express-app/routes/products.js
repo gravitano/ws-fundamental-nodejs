@@ -1,9 +1,13 @@
 var express = require("express");
 var router = express.Router();
+const model = require("../models");
 
 /* GET users listing. */
-router.get("/", function(req, res, next) {
-  res.send("Show all products");
+router.get("/", async function(req, res, next) {
+  const products = await model.Product.findAll();
+  res.json({
+    data: products
+  });
 });
 router.post("/", function(req, res, next) {
   res.send("Create new product");
