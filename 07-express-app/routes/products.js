@@ -16,8 +16,12 @@ router.post("/", async function(req, res, next) {
     data: product
   });
 });
-router.get("/:id", function(req, res, next) {
-  res.send("Get product detail");
+router.get("/:id", async function(req, res, next) {
+  const id = req.params.id;
+  const product = await model.Product.findOne({ id });
+  res.json({
+    data: product
+  });
 });
 router.put("/:id", function(req, res, next) {
   res.send("Update product");
