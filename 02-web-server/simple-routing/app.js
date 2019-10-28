@@ -8,25 +8,28 @@ const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "text/html");
 
-  let content = fs.readFileSync(__dirname + "/index.html");
+  let content = "";
+  let file = "";
 
   console.log("URL", req.url);
 
   switch (req.url) {
     case "/":
-      content = fs.readFileSync(__dirname + "/index.html");
+      file = "index";
       break;
     case "/contact":
-      content = fs.readFileSync(__dirname + "/contact.html");
+      file = "contact";
       break;
     case "/about":
-      content = fs.readFileSync(__dirname + "/about.html");
+      file = "about";
       break;
     default:
       res.statusCode = 404;
-      content = fs.readFileSync(__dirname + "/404.html");
+      file = "404";
       break;
   }
+
+  content = fs.readFileSync(`${__dirname}/${file}.html`);
 
   res.end(content);
 });
