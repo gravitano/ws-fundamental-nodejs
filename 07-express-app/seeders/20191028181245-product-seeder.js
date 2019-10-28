@@ -23,6 +23,14 @@ module.exports = {
           stock: 5,
           createdAt: new Date(),
           updatedAt: new Date()
+        },
+        {
+          name: "iPhone 11",
+          description: "Handphone masa kini",
+          price: 2600,
+          stock: 2,
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
       {}
